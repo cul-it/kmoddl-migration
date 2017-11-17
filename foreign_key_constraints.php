@@ -79,11 +79,6 @@ if ($handle) {
         }
         $alter = "ALTER TABLE `$table` ";
         $clauses = array();
-        // if (!preg_match('/v2_[^2]+2[^2]+/',$table)) {
-        //     // tables like v2_models2resources don't have id fields
-        //     $clauses[] = "ADD UNIQUE KEY `id` (`id`)";
-        //     // v2_owners2resources does have an id field!!!
-        // }
         foreach ($fields as $key => $referenced) {
             // foreign key fields must be indexed
             if (isset($skip_key["$table"]) && in_array($key, $skip_key["$table"])) {
