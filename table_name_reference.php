@@ -7,7 +7,7 @@ $real_table = array(
 'fk_bib' => 'v2_bibrecords',
 'fk_bio_auth' => 'v2_people',
 'fk_category_schemes' => 'v2_model_category_schemes',
-'fk_category' => 'v2_model_categories',
+'fk_category' => 'v2_model_categories', *
 'fk_collection' => 'v2_collections',
 'fk_creator' => 'v2_people',
 'fk_DCMI_type' => 'v2_dcmi_types',
@@ -35,6 +35,8 @@ $real_table = array(
 'fk_surrogate' => 'v2_surrogates',
 'fk_type' => 'v2_bibrecord_types',
 );
+
+* v2_stills.fk_category => v2_still_categories.id
 
 // unique table names
 oai_records
