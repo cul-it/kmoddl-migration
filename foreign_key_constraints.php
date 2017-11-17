@@ -77,21 +77,26 @@ if ($handle) {
         if (preg_match('/v2_[^2]+2[^2]+/',$table)) {
             continue;
         }
-        $alter = "ALTER TABLE `$table` ";
-        $clauses = array();
-        foreach ($fields as $key => $referenced) {
-            // foreign key fields must be indexed
-            if (isset($skip_key["$table"]) && in_array($key, $skip_key["$table"])) {
-                continue;
-            }
-            $clauses[] = "ADD KEY `$key` (`$key`)";
-        }
-        echo $alter . implode(', ', $clauses) . ";\n";
+        // $alter = "ALTER TABLE `$table` ";
+        // $clauses = array();
+        // foreach ($fields as $key => $referenced) {
+        //     // foreign key fields must be indexed
+        //     if (isset($skip_key["$table"]) && in_array($key, $skip_key["$table"])) {
+        //         continue;
+        //     }
+        //     $clauses[] = "ADD KEY `$key` (`$key`)";
+        // }
+        // echo $alter . implode(', ', $clauses) . ";\n";
 
     }
     foreach($tables as $table => $fields) {
         foreach ($fields as $key => $referenced) {
-            echo "ALTER TABLE `$table` ADD CONSTRAINT `C$key` FOREIGN KEY (`$key`) REFERENCES $referenced(id);\n";
+            if ($table == 'v2_stills' && $key == 'fk_category') {
+                // anomoly in naming
+                $referenced = 'v2_still_categories';
+            }
+            $constraint_name = $table . '_' . $key;
+            echo "ALTER TABLE `$table` ADD CONSTRAINT `$constraint_name` FOREIGN KEY (`$key`) REFERENCES $referenced(id);\n";
         }
     }
     // foreach($real_table as $key => $val) {
